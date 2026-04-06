@@ -1,0 +1,15 @@
+.noteInput {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 6px;
+
+  &::placeholder {
+    color: red;
+  }
+
+  &:focus {
+    border-color: #3b82f6;
+    outline: none;
+  }
+}

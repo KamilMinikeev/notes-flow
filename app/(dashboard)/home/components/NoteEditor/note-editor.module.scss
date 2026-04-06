@@ -1,0 +1,14 @@
+.noteEditorInner {
+  overflow-y: auto;
+  div {
+    height: 100%;
+  }
+  img {
+    height: 100%;
+    max-height: 200px;
+  }
+}
+
+.noteEditorAddImage {
+  max-height: 30px;
+}

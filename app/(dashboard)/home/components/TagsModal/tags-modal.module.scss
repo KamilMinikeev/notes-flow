@@ -1,0 +1,54 @@
+.tagsModalInputInner {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 90% 10%;
+}
+
+.tagsModalInput {
+  border: 1px solid grey;
+  padding: 5px;
+  padding-left: 7px;
+  border-radius: 6px;
+}
+
+.tagsModalInputBtn {
+  border: 1px solid violet;
+  border-radius: 6px;
+}
+
+.tagsModalExistingTagsInner {
+  border-radius: 6px;
+  padding: 5px;
+  padding-bottom: 24px;
+
+  &.error {
+    border: 1px solid red;
+  }
+}
+
+.tagsModalBtn {
+  border-radius: 24px;
+  width: fit-content;
+  min-width: 300px;
+  padding: 12px;
+  height: 56px;
+  transition: all 0.3s linear;
+}
+
+.tagsModalAddBtn {
+  border: 1px solid rgb(49, 147, 208);
+
+  &:hover {
+    background: rgb(49, 147, 208);
+    color: white;
+  }
+}
+
+.tagsModalCloseBtn {
+  border: 1px solid rgb(94, 69, 69);
+
+  &:hover {
+    background: rgb(94, 69, 69);
+    color: white;
+  }
+}
