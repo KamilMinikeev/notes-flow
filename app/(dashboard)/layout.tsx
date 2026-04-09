@@ -5,6 +5,7 @@ import { NoteContentProvider } from "../providers/NoteContentProvider";
 import { DraftModalProvider } from "../providers/DraftModalProvider";
 import { DeleteModalProvider } from "../providers/DeleteModalProvider";
 import { EditorProvider } from "../providers/EditorProvider";
+import { FoldersProvider } from "../providers/FoldersProvider";
 
 export default function DashboardLayout({
   children,
@@ -19,7 +20,9 @@ export default function DashboardLayout({
           <DeleteModalProvider>
             <EditorProvider>
               <NotesProvider>
-                <NoteContentProvider>{children}</NoteContentProvider>
+                <NoteContentProvider>
+                  <FoldersProvider>{children}</FoldersProvider>
+                </NoteContentProvider>
               </NotesProvider>
             </EditorProvider>
           </DeleteModalProvider>

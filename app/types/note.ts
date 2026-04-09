@@ -23,4 +23,5 @@ export type Note = {
   createdAt: number;
   isDraft?: boolean;
   updatedAt?: number;
+  folder?: string;
 };

@@ -14,6 +14,7 @@ import NoteEditor from "./NoteEditor/NoteEditor";
 import NoteInput from "./NoteInput/NoteInput";
 import NoteTitle from "./NoteTitle";
 import NoteText from "./NoteText";
+import NoteFolder from "./NoteFolder";
 
 export default function NoteContent() {
   const { closeNoteContent, activeNoteId } = useNoteContent();
@@ -31,6 +32,8 @@ export default function NoteContent() {
     setSelectedTags,
     editorState,
     setEditorState,
+    noteFolder,
+    setNoteFolder,
   } = useEditor();
 
   const { tagsModalKey } = useEditorKey();
@@ -104,6 +107,10 @@ export default function NoteContent() {
     setSelectedTags((prev) => prev.filter((id) => id !== tagId));
   };
 
+  const addFolder = (id: string) => {
+    setNoteFolder(id);
+  };
+
   const handleClose = () => {
     closeNoteContent(hasChanges, {
       id: activeNoteId,
@@ -135,39 +142,44 @@ export default function NoteContent() {
           onEnter={handleKeyDown}
         />
 
-        {selectedTags.length ? (
-          <div className="flex gap-2.5">
-            <div className="flex gap-1.5">
-              {selectedTags.map((tagId) => {
-                const tag = tags.find((t) => t.id === tagId);
-                if (!tag) return null;
-                return (
-                  <div
-                    key={tag.id}
-                    style={{ borderColor: tag.color }}
-                    className="border rounded-sm p-1 flex items-center gap-2.5"
-                  >
-                    <div style={{ color: tag.color }}>{tag.name}</div>
-                    <button onClick={() => deleteSelectedTag(tagId)}>X</button>
-                  </div>
-                );
-              })}
+        <div className="flex items-start">
+          <NoteFolder noteFolder={noteFolder} addFolder={addFolder} />
+          {selectedTags.length ? (
+            <div className="flex gap-2.5">
+              <div className="flex gap-1.5">
+                {selectedTags.map((tagId) => {
+                  const tag = tags.find((t) => t.id === tagId);
+                  if (!tag) return null;
+                  return (
+                    <div
+                      key={tag.id}
+                      style={{ borderColor: tag.color }}
+                      className="border rounded-sm p-1 flex items-center gap-2.5"
+                    >
+                      <div style={{ color: tag.color }}>{tag.name}</div>
+                      <button onClick={() => deleteSelectedTag(tagId)}>
+                        X
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+              <button
+                className="border rounded-sm p-2"
+                onClick={() => setIsTagsModalOpen(true)}
+              >
+                +
+              </button>
             </div>
+          ) : (
             <button
-              className="border rounded-sm p-2"
               onClick={() => setIsTagsModalOpen(true)}
+              className={`w-fit border rounded-2xl font-bold`}
             >
-              +
+              Добавить тег +
             </button>
-          </div>
-        ) : (
-          <button
-            onClick={() => setIsTagsModalOpen(true)}
-            className={`w-fit border rounded-2xl font-bold`}
-          >
-            Добавить тег +
-          </button>
-        )}
+          )}
+        </div>
 
         {/* <NoteEditor
           key={isNewNote ? editorKey : undefined}

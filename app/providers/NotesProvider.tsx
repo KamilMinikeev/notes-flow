@@ -18,6 +18,7 @@ type NotesContextType = {
     title: string,
     text: string,
     tagsId: string[],
+    folderId: string | null,
     content: any,
     isDraft?: boolean,
   ) => void;
@@ -26,6 +27,7 @@ type NotesContextType = {
     title: string,
     text: string,
     tagsId: string[],
+    folderId: string | null,
     content: any,
     isDraft?: boolean,
   ) => void;
@@ -69,6 +71,7 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
     title: string,
     text: string,
     tagsId: string[],
+    folderId: string | null,
     content: any,
     isDraft?: boolean,
   ) => {
@@ -80,6 +83,7 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
               title,
               text,
               tagsId,
+              folderId,
               content,
               isDraft: isDraft ?? false,
               updatedAt: Date.now(),
@@ -94,6 +98,7 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
     title: string,
     text: string,
     tagsId: string[],
+    folderId: string | null,
     content: any,
     isDraft?: boolean,
   ) => {
@@ -104,6 +109,7 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
         title,
         text,
         tagsId,
+        folderId,
         content,
         createdAt: Date.now(),
         isDraft: isDraft ?? false,

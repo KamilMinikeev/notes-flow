@@ -1,15 +1,20 @@
 "use client";
 
-import { useNotes } from "@/app/providers/NotesProvider";
+import { useFolders } from "@/app/providers/FoldersProvider";
 
 const Aside = () => {
-  const { noteTitle } = useNotes();
+  const { folders } = useFolders();
   return (
     <div className="border-gray-400 border-r bg-[#f8fafc] py-4 px-3.5">
       <p>Папки</p>
-      <button className="border p-2" onClick={() => alert(noteTitle)}>
-        тест
-      </button>
+      <ul>
+        {folders.map((folder) => (
+          <li className="flex items-center gap-1">
+            <div> {folder.icon}</div>
+            <span> {folder.name}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

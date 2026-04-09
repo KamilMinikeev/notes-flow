@@ -11,6 +11,8 @@ type EditorContextType = {
   setEditorState: React.Dispatch<React.SetStateAction<any>>;
   selectedTags: string[];
   setSelectedTags: React.Dispatch<React.SetStateAction<string[]>>;
+  noteFolder: string | null;
+  setNoteFolder: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 const EditorContext = createContext<EditorContextType | undefined>(undefined);
@@ -20,6 +22,7 @@ export const EditorProvider = ({ children }: { children: ReactNode }) => {
   const [noteTitle, setNoteTitle] = useState("Новая запись");
   const [noteText, setNoteText] = useState("");
   const [editorState, setEditorState] = useState<any>(null);
+  const [noteFolder, setNoteFolder] = useState<string | null>(null);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   return (
@@ -33,6 +36,8 @@ export const EditorProvider = ({ children }: { children: ReactNode }) => {
         setEditorState,
         selectedTags,
         setSelectedTags,
+        noteFolder,
+        setNoteFolder,
       }}
     >
       {children}

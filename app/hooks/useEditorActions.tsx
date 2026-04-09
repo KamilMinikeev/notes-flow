@@ -12,10 +12,12 @@ export const useEditorActions = () => {
     noteTitle,
     noteText,
     selectedTags,
+    noteFolder,
     editorState,
     setNoteTitle,
     setNoteText,
     setSelectedTags,
+    setNoteFolder,
     setEditorState,
   } = useEditor();
 
@@ -34,9 +36,16 @@ export const useEditorActions = () => {
 
   const handleSaveNote = () => {
     if (activeNoteId) {
-      updateNote(activeNoteId, noteTitle, noteText, selectedTags, editorState);
+      updateNote(
+        activeNoteId,
+        noteTitle,
+        noteText,
+        selectedTags,
+        noteFolder,
+        editorState,
+      );
     } else {
-      saveNote(noteTitle, noteText, selectedTags, editorState);
+      saveNote(noteTitle, noteText, selectedTags, noteFolder, editorState);
     }
 
     closeNoteContent(false, {

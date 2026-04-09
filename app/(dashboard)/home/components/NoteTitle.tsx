@@ -31,7 +31,7 @@ const NoteTitle = ({ noteTitle, onChangeTitle, onEnter }: Props) => {
       onKeyDown={(e) => onEnter(e)}
       ref={textAreaRef}
       value={noteTitle}
-      className={`font-bold mb-1.5 placeholder-red-500 focus:border-blue-500 focus:outline-none
+      className={`font-bold mb-2.5 placeholder-red-500 focus:border-blue-500 focus:outline-none
              w-full text-2xl`}
     />
   );
