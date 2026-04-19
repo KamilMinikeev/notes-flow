@@ -2,10 +2,9 @@
 
 import { AiFillDelete } from "react-icons/ai";
 
-import { useNoteContent } from "@/app/providers/NoteContentProvider";
 import { useDeleteModal } from "@/app/providers/DeleteModalProvider";
 import { useNotes } from "@/app/providers/NotesProvider";
-import { useEditorActions } from "@/app/hooks/useEditorActions";
+import { useOpenNoteWithSave } from "@/app/hooks/useOpenNoteWithSave";
 
 import { Tag } from "@/app/types/note";
 import { formatNoteDate } from "@/app/utils/date";
@@ -30,10 +29,9 @@ export default function NoteCard({
   isDraft,
   updatedDate,
 }: NoteCardProps) {
-  const { openNoteContent } = useNoteContent();
   const { requestDeleteConfirm } = useDeleteModal();
   const { deleteNote } = useNotes();
-  const { handleSaveNote, hasChanges } = useEditorActions();
+  const { openWithSave } = useOpenNoteWithSave();
 
   //удаление заметки
   const handleDelete = () => {
@@ -45,15 +43,9 @@ export default function NoteCard({
     });
   };
 
-  //открытие эдитора с предварительным сохранением предыдущей заметки
-  const handleOpen = () => {
-    handleSaveNote();
-    openNoteContent(id);
-  };
-
   return (
     <div
-      onClick={handleOpen}
+      onClick={() => openWithSave(id)}
       className="cursor-pointer p-4 pt-0.5 border rounded-md shadow-sm bg-white hover:shadow-md transition relative flex flex-col justify-between h-30 overflow-hidden"
     >
       <div className="flex justify-between items-center mb-0.5">

@@ -118,8 +118,6 @@ export const useEditorActions = () => {
         );
       }
 
-      addNoteToFolder(id);
-
       closeNoteContent(false, {
         id,
         title: noteTitle,
@@ -130,21 +128,6 @@ export const useEditorActions = () => {
 
       resetNoteState();
     }
-  };
-
-  const addNoteToFolder = (id: string) => {
-    setFolders((prev) =>
-      prev.map((item) =>
-        item.id === noteFolder
-          ? {
-              ...item,
-              notes: item.notes?.includes(id)
-                ? item.notes
-                : [...(item.notes || []), id],
-            }
-          : item,
-      ),
-    );
   };
 
   return {

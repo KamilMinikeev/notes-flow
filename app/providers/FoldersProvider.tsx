@@ -39,7 +39,6 @@ export const FoldersProvider = ({ children }: { children: ReactNode }) => {
         id: crypto.randomUUID(),
         name,
         icon,
-        notes: [],
       },
     ]);
   };

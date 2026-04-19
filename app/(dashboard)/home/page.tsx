@@ -5,7 +5,7 @@ import CreateNote from "./components/CreateNote";
 
 const Page = () => {
   return (
-    <div className="grid grid-cols-[300px_300px_1fr] w-full">
+    <div className="grid grid-cols-[230px_300px_1fr] w-full">
       <Aside />
       <LastNotes />
       <CreateNote />
