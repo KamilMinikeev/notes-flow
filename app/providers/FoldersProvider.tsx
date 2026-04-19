@@ -12,6 +12,7 @@ import type { Folder } from "../types/folder";
 
 type FoldersContextType = {
   folders: Folder[];
+  setFolders: React.Dispatch<React.SetStateAction<Folder[]>>;
   addNewFolder: (name: string, icon: string) => void;
 };
 
@@ -32,13 +33,13 @@ export const FoldersProvider = ({ children }: { children: ReactNode }) => {
 
   // Добавление папки
   const addNewFolder = (name: string, icon: string) => {
-    alert(name);
     setFolders((prev) => [
       ...prev,
       {
         id: crypto.randomUUID(),
         name,
         icon,
+        notes: [],
       },
     ]);
   };
@@ -47,6 +48,7 @@ export const FoldersProvider = ({ children }: { children: ReactNode }) => {
     <FoldersContext.Provider
       value={{
         folders,
+        setFolders,
         addNewFolder,
       }}
     >

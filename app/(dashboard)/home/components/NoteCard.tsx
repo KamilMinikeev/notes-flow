@@ -33,7 +33,7 @@ export default function NoteCard({
   const { openNoteContent } = useNoteContent();
   const { requestDeleteConfirm } = useDeleteModal();
   const { deleteNote } = useNotes();
-  const { handleSaveNote } = useEditorActions();
+  const { handleSaveNote, hasChanges } = useEditorActions();
 
   //удаление заметки
   const handleDelete = () => {

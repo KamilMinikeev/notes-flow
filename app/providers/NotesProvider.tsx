@@ -21,7 +21,7 @@ type NotesContextType = {
     folderId: string | null,
     content: any,
     isDraft?: boolean,
-  ) => void;
+  ) => string;
   updateNote: (
     id: string,
     title: string,
@@ -102,10 +102,11 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
     content: any,
     isDraft?: boolean,
   ) => {
+    const id = crypto.randomUUID();
     setNotes((prev) => [
       ...prev,
       {
-        id: crypto.randomUUID(),
+        id,
         title,
         text,
         tagsId,
@@ -115,6 +116,7 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
         isDraft: isDraft ?? false,
       },
     ]);
+    return id;
   };
 
   //удаление заметки

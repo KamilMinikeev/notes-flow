@@ -19,9 +19,9 @@ import NoteFolder from "./NoteFolder";
 export default function NoteContent() {
   const { closeNoteContent, activeNoteId } = useNoteContent();
 
-  const { tags, notes } = useNotes();
+  const { tags } = useNotes();
 
-  const { handleSaveNote, resetNoteState } = useEditorActions();
+  const { handleSaveNote, resetNoteState, hasChanges } = useEditorActions();
 
   const {
     noteTitle,
@@ -37,64 +37,7 @@ export default function NoteContent() {
   } = useEditor();
 
   const { tagsModalKey } = useEditorKey();
-
   const [isTagsModalOpen, setIsTagsModalOpen] = useState(false);
-
-  const currentNote = notes.find((n) => n.id === activeNoteId) ?? null;
-
-  const parthname = usePathname();
-  const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    if (currentNote) {
-      console.log(currentNote);
-      setNoteTitle(currentNote.title);
-      setNoteText(currentNote.text);
-      setSelectedTags(currentNote.tagsId);
-      setEditorState(currentNote.content);
-    } else {
-      // режим создания
-      setNoteTitle("Новая запись");
-      setNoteText("");
-      setSelectedTags([]);
-      setEditorState(null);
-    }
-  }, [currentNote]);
-
-  const initialStateRef = useRef<{
-    title: string;
-    text: string;
-    selectedTags: string[];
-    content: any;
-  } | null>(null);
-
-  useEffect(() => {
-    if (currentNote) {
-      initialStateRef.current = {
-        title: currentNote.title,
-        text: currentNote.text,
-        selectedTags: currentNote.tagsId,
-        content: currentNote.content,
-      };
-    } else {
-      initialStateRef.current = {
-        title: "Новая запись",
-        text: "",
-        selectedTags: [],
-        content: null,
-      };
-    }
-  }, [currentNote]);
-
-  const hasChanges =
-    noteTitle !== initialStateRef.current?.title ||
-    noteText !== initialStateRef.current?.text ||
-    selectedTags.length !== initialStateRef.current?.selectedTags.length ||
-    !selectedTags.every((id) =>
-      initialStateRef.current?.selectedTags.includes(id),
-    ) ||
-    JSON.stringify(editorState) !==
-      JSON.stringify(initialStateRef.current?.content);
 
   //добавление тегов в заметку
   const addSelectedTags = (tags: string[]) => {
@@ -107,6 +50,7 @@ export default function NoteContent() {
     setSelectedTags((prev) => prev.filter((id) => id !== tagId));
   };
 
+  //добавление папки в заметку
   const addFolder = (id: string) => {
     setNoteFolder(id);
   };
