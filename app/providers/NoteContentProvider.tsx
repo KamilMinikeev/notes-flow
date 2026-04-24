@@ -16,11 +16,17 @@ type NoteData = {
   content: any;
 };
 
+type OpenEditorParams = {
+  noteId?: string;
+  folderId?: string;
+};
+
 type NoteContentContextType = {
   isNoteContentOpen: boolean;
-  openNoteContent: (noteId?: string) => void;
+  openNoteContent: ({ noteId, folderId }: OpenEditorParams) => void;
   closeNoteContent: (noteChanges: boolean, note: NoteData) => void;
   activeNoteId: string | undefined;
+  newFolderId: string | undefined;
 };
 
 const NoteContentContext = createContext<NoteContentContextType | undefined>(
@@ -32,6 +38,7 @@ export const NoteContentProvider = ({ children }: { children: ReactNode }) => {
   const [activeNoteId, setActiveNoteId] = useState<string | undefined>(
     undefined,
   );
+  const [newFolderId, setNewFolderId] = useState<string | undefined>(undefined);
 
   const { setEditorKey } = useEditorKey();
 
@@ -63,8 +70,9 @@ export const NoteContentProvider = ({ children }: { children: ReactNode }) => {
   };
 
   //открытие редактора
-  const openNoteContent = (noteId?: string) => {
+  const openNoteContent = ({ noteId, folderId }: OpenEditorParams) => {
     setActiveNoteId(noteId ?? undefined);
+    setNewFolderId(folderId ?? undefined);
     setIsNoteContentOpen(true);
   };
 
@@ -99,6 +107,7 @@ export const NoteContentProvider = ({ children }: { children: ReactNode }) => {
         closeNoteContent,
         openNoteContent,
         activeNoteId,
+        newFolderId,
       }}
     >
       {children}

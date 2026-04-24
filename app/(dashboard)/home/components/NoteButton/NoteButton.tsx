@@ -8,7 +8,7 @@ export default function NoteButton() {
 
   return (
     <button
-      onClick={() => openNoteContent()}
+      onClick={() => openNoteContent({})}
       className={`${styles.noteButton} 
         max-w-80
         w-full

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Plus } from "lucide-react";
 
 import NoteButton from "./NoteButton/NoteButton";
-import NoteContent from "./NoteContent";
+import NoteContent from "./Editor/NoteContent";
 import { useNoteContent } from "@/app/providers/NoteContentProvider";
 
 const CreateNote = () => {

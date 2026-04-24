@@ -1,9 +1,11 @@
 import { Folder } from "lucide-react";
 
 import { useFolders } from "@/app/providers/FoldersProvider";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
-import FolderModal from "./FolderModal";
+import FolderModal from "../Modals/FolderModal";
+
+import { useFolderModalStore } from "@/app/stores/useFolderModalStore";
 
 type NoteFolderProps = {
   addFolder: (id: string) => void;
@@ -15,13 +17,31 @@ const NoteFolder = ({ addFolder, noteFolder }: NoteFolderProps) => {
 
   const [isOpenSelect, setIsOpenSelect] = useState<boolean>(false);
 
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const { openCreateFolder } = useFolderModalStore();
 
   const showFolders = folders.slice(3);
 
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!ref.current) return;
+
+      if (!ref.current.contains(event.target as Node)) {
+        setIsOpenSelect(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <div className="flex flex-col w-35 relative">
+      <div ref={ref} className="flex flex-col w-35 relative">
         <button
           onClick={() => setIsOpenSelect(!isOpenSelect)}
           className="flex items-center gap-2 rounded-lg border border-gray-300 p-2 bg-[#f9fafb]"
@@ -47,7 +67,10 @@ const NoteFolder = ({ addFolder, noteFolder }: NoteFolderProps) => {
               {folders.map((folder) => (
                 <li className="border-b w-full px-1 hover:bg-violet-300">
                   <button
-                    onClick={() => addFolder(folder.id)}
+                    onClick={() => {
+                      addFolder(folder.id);
+                      setIsOpenSelect(!isOpenSelect);
+                    }}
                     className="w-full text-left text-sm"
                   >
                     {folder.name}
@@ -55,16 +78,12 @@ const NoteFolder = ({ addFolder, noteFolder }: NoteFolderProps) => {
                 </li>
               ))}
             </ul>
-            <button
-              className="bg-amber-100 w-full"
-              onClick={() => setIsOpenModal(true)}
-            >
+            <button className="bg-amber-100 w-full" onClick={openCreateFolder}>
               +Новая папка
             </button>
           </div>
         )}
       </div>
-      <FolderModal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} />
     </>
   );
 };

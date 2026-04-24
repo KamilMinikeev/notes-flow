@@ -9,7 +9,7 @@ import { useEditorKey } from "@/app/hooks/useEditorKey";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
-import TagsModal from "./TagsModal/TagsModal";
+import TagsModal from "../Modals/TagsModal/TagsModal";
 import NoteEditor from "./NoteEditor/NoteEditor";
 import NoteInput from "./NoteInput/NoteInput";
 import NoteTitle from "./NoteTitle";

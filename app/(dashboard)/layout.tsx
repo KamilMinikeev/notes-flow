@@ -4,6 +4,7 @@ import { NotesProvider } from "../providers/NotesProvider";
 import { NoteContentProvider } from "../providers/NoteContentProvider";
 import { DraftModalProvider } from "../providers/DraftModalProvider";
 import { DeleteModalProvider } from "../providers/DeleteModalProvider";
+import { DeleteFolderModalProvider } from "../providers/DeleteFolderModalProvider";
 import { EditorProvider } from "../providers/EditorProvider";
 import { FoldersProvider } from "../providers/FoldersProvider";
 
@@ -18,13 +19,15 @@ export default function DashboardLayout({
       <main className="flex-1 flex">
         <DraftModalProvider>
           <DeleteModalProvider>
-            <EditorProvider>
-              <NotesProvider>
-                <NoteContentProvider>
-                  <FoldersProvider>{children}</FoldersProvider>
-                </NoteContentProvider>
-              </NotesProvider>
-            </EditorProvider>
+            <DeleteFolderModalProvider>
+              <EditorProvider>
+                <NotesProvider>
+                  <NoteContentProvider>
+                    <FoldersProvider>{children}</FoldersProvider>
+                  </NoteContentProvider>
+                </NotesProvider>
+              </EditorProvider>
+            </DeleteFolderModalProvider>
           </DeleteModalProvider>
         </DraftModalProvider>
       </main>

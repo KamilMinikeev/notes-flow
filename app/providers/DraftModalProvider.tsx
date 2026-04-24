@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import DraftModal from "../(dashboard)/home/components/DraftModal/DraftModal";
+import DraftModal from "../(dashboard)/home/components/Modals/DraftModal/DraftModal";
 
 type DraftModalContextType = {
   requestDraftConfirm: (onConfirm: () => void, onDiscard?: () => void) => void;

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import DeleteModal from "../(dashboard)/home/components/DeleteModal/DeleteModal";
+import DeleteModal from "../(dashboard)/home/components/Modals/DeleteModal/DeleteModal";
 
 type DeleteModalContextType = {
   requestDeleteConfirm: (params: {

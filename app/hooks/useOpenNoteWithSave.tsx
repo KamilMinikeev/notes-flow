@@ -8,7 +8,7 @@ export const useOpenNoteWithSave = () => {
   //открытие редактора с предварительным сохранением предыдущей заметки
   const openWithSave = (id: string) => {
     handleSaveNote();
-    openNoteContent(id);
+    openNoteContent({ noteId: id });
   };
 
   return {

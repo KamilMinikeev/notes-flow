@@ -1,0 +1,53 @@
+"use client";
+
+type DeleteModalProps = {
+  isOpen: boolean;
+  onDelete: () => void;
+  onDiscard: () => void;
+  title: string;
+};
+
+export default function DeleteFolderModal({
+  isOpen,
+  onDelete,
+  onDiscard,
+  title,
+}: DeleteModalProps) {
+  return (
+    <>
+      <div
+        className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${isOpen ? "flex" : "hidden"}`}
+      >
+        {/* overlay */}
+        <div
+          className="absolute inset-0 bg-black/40"
+          onClick={() => onDiscard()}
+        />
+
+        {/* modal */}
+        <div
+          className={`flex flex-col relative bg-white w-full max-w-4xl rounded-2xl p-6 shadow-xl h-full`}
+        >
+          <h3 className="mb-2">Удалить вашу папку {title} ?</h3>
+          <p>Удаляться также все заметки внутри этой папки</p>
+
+          <div className="flex justify-end gap-3 mt-6">
+            <button
+              onClick={() => onDiscard()}
+              className="px-4 py-2 rounded-lg border border-zinc-500 text-gray-500 hover:text-black"
+            >
+              Отмена
+            </button>
+
+            <button
+              onClick={() => onDelete()}
+              className="px-6 py-2 rounded-lg bg-black text-white hover:bg-gray-800"
+            >
+              Удалить
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

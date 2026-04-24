@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useNoteContent } from "@/app/providers/NoteContentProvider";
+import { useEditorActions } from "@/app/hooks/useEditorActions";
 
 type Props = {
   noteTitle: string;
@@ -11,6 +12,7 @@ type Props = {
 
 const NoteTitle = ({ noteTitle, onChangeTitle, onEnter }: Props) => {
   const { isNoteContentOpen } = useNoteContent();
+  const { handleSaveNote } = useEditorActions();
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -23,7 +25,7 @@ const NoteTitle = ({ noteTitle, onChangeTitle, onEnter }: Props) => {
     }, 100); // задержка, чтобы фокус не перескочил на блок с контентом
 
     return () => clearTimeout(timer);
-  }, [isNoteContentOpen]);
+  }, [isNoteContentOpen, handleSaveNote]);
 
   return (
     <textarea

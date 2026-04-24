@@ -1,20 +1,24 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode } from "react";
-import DeleteModal from "./DeleteModal/DeleteModal";
+import DeleteFolderModal from "../(dashboard)/home/components/Modals/DeleteFolderModal";
 
-type DeleteModalContextType = {
+type DeleteFolderModalContextType = {
   requestDeleteConfirm: (params: {
     title: string;
     onConfirm: () => void;
   }) => void;
 };
 
-const DeleteModalContext = createContext<DeleteModalContextType | undefined>(
-  undefined,
-);
+const DeleteFolderModalContext = createContext<
+  DeleteFolderModalContextType | undefined
+>(undefined);
 
-export const DeleteModalProvider = ({ children }: { children: ReactNode }) => {
+export const DeleteFolderModalProvider = ({
+  children,
+}: {
+  children: ReactNode;
+}) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [onConfirm, setOnConfirm] = useState<(() => void) | null>(null);
@@ -48,22 +52,24 @@ export const DeleteModalProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <DeleteModalContext.Provider value={{ requestDeleteConfirm }}>
+    <DeleteFolderModalContext.Provider value={{ requestDeleteConfirm }}>
       {children}
-      <DeleteModal
+      <DeleteFolderModal
         isOpen={isDeleteModalOpen}
         onDelete={handleDelete}
         onDiscard={handleDiscard}
         title={title}
       />
-    </DeleteModalContext.Provider>
+    </DeleteFolderModalContext.Provider>
   );
 };
 
-export const useDeleteModal = () => {
-  const context = useContext(DeleteModalContext);
+export const useDeleteFolderModal = () => {
+  const context = useContext(DeleteFolderModalContext);
   if (!context) {
-    throw new Error("useDeleteModal must be used inside DeleteModalProvider");
+    throw new Error(
+      "useDeleteFolderModal must be used inside DeleteFolderModalProvider",
+    );
   }
 
   return context;

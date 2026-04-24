@@ -24,11 +24,9 @@ export const useEditorActions = () => {
     setEditorState,
   } = useEditor();
 
-  const { activeNoteId, closeNoteContent } = useNoteContent();
+  const { activeNoteId, closeNoteContent, newFolderId } = useNoteContent();
 
   const { resetKey } = useEditorKey();
-
-  const { setFolders } = useFolders();
 
   //Отслеживание изменения заметки
   const currentNote = notes.find((n) => n.id === activeNoteId) ?? null;
@@ -46,9 +44,9 @@ export const useEditorActions = () => {
       setNoteText("");
       setSelectedTags([]);
       setEditorState(null);
-      setNoteFolder(null);
+      setNoteFolder(newFolderId ?? null);
     }
-  }, [currentNote]);
+  }, [currentNote, newFolderId]);
 
   const initialStateRef = useRef<{
     title: string;
@@ -73,10 +71,10 @@ export const useEditorActions = () => {
         text: "",
         selectedTags: [],
         content: null,
-        folderId: null,
+        folderId: newFolderId ?? null,
       };
     }
-  }, [currentNote]);
+  }, [currentNote, newFolderId]);
 
   const hasChanges =
     noteTitle !== initialStateRef.current?.title ||
@@ -88,6 +86,10 @@ export const useEditorActions = () => {
     ) ||
     JSON.stringify(editorState) !==
       JSON.stringify(initialStateRef.current?.content);
+
+  // useEffect(() => {
+  //   console.log(hasChanges);
+  // }, [newFolderId]);
 
   //сброс заметки
   const resetNoteState = () => {

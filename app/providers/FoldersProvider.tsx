@@ -13,7 +13,9 @@ import type { Folder } from "../types/folder";
 type FoldersContextType = {
   folders: Folder[];
   setFolders: React.Dispatch<React.SetStateAction<Folder[]>>;
-  addNewFolder: (name: string, icon: string) => void;
+  addNewFolder: (name: string, icon: string) => string | null;
+  renameFolder: (id: string, name: string) => void;
+  deleteFolder: (id: string) => void;
 };
 
 const FoldersContext = createContext<FoldersContextType | undefined>(undefined);
@@ -33,14 +35,38 @@ export const FoldersProvider = ({ children }: { children: ReactNode }) => {
 
   // Добавление папки
   const addNewFolder = (name: string, icon: string) => {
-    setFolders((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        name,
-        icon,
-      },
-    ]);
+    const sameName = folders.find((folder) => folder.name === name);
+    if (sameName) {
+      alert("Такое имя папки уже существует!");
+      return null;
+    }
+
+    const id = crypto.randomUUID();
+
+    setFolders((prev) => {
+      return [
+        ...prev,
+        {
+          id,
+          name,
+          icon,
+        },
+      ];
+    });
+
+    return id;
+  };
+
+  //Переименование папки
+  const renameFolder = (id: string, name: string) => {
+    setFolders((prev) =>
+      prev.map((folder) => (folder.id === id ? { ...folder, name } : folder)),
+    );
+  };
+
+  //Удаление папки
+  const deleteFolder = (id: string) => {
+    setFolders((prev) => prev.filter((folder) => folder.id !== id));
   };
 
   return (
@@ -49,6 +75,8 @@ export const FoldersProvider = ({ children }: { children: ReactNode }) => {
         folders,
         setFolders,
         addNewFolder,
+        renameFolder,
+        deleteFolder,
       }}
     >
       {children}
