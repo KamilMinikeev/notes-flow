@@ -47,7 +47,7 @@ const NoteFolder = ({ addFolder, noteFolder }: NoteFolderProps) => {
           className="flex items-center gap-2 rounded-lg border border-gray-300 p-2 bg-[#f9fafb]"
         >
           <Folder className="w-4 h-4 text-gray-700" />
-          <span className="text-gray-700">
+          <span className="text-gray-700 whitespace-nowrap">
             {noteFolder
               ? (folders.find((item) => item.id === noteFolder)?.name ??
                 "Без папки")

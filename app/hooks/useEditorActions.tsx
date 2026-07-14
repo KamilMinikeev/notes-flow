@@ -87,10 +87,6 @@ export const useEditorActions = () => {
     JSON.stringify(editorState) !==
       JSON.stringify(initialStateRef.current?.content);
 
-  // useEffect(() => {
-  //   console.log(hasChanges);
-  // }, [newFolderId]);
-
   //сброс заметки
   const resetNoteState = () => {
     setSelectedTags([]);
@@ -103,6 +99,8 @@ export const useEditorActions = () => {
 
   const handleSaveNote = () => {
     if (hasChanges) {
+      if (!noteTitle.trim()) return;
+
       const isEdit = Boolean(activeNoteId);
 
       const id = isEdit

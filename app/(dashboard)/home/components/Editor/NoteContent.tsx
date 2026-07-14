@@ -86,7 +86,11 @@ export default function NoteContent() {
           onEnter={handleKeyDown}
         />
 
-        <div className="flex items-start">
+        {!noteTitle.trim() && (
+          <p className="text-red-500">Введите название заметки!</p>
+        )}
+
+        <div className="flex items-center gap-1">
           <NoteFolder noteFolder={noteFolder} addFolder={addFolder} />
           {selectedTags.length ? (
             <div className="flex gap-2.5">
@@ -118,7 +122,7 @@ export default function NoteContent() {
           ) : (
             <button
               onClick={() => setIsTagsModalOpen(true)}
-              className={`w-fit border rounded-2xl font-bold`}
+              className={`w-fit border rounded-2xl font-bold p-1.5`}
             >
               Добавить тег +
             </button>
@@ -146,7 +150,7 @@ export default function NoteContent() {
           </button>
 
           <button
-            disabled={!hasChanges}
+            disabled={!hasChanges || !noteTitle.trim()}
             onClick={() => handleSaveNote()}
             className="px-6 py-2 rounded-lg bg-black text-white hover:bg-gray-800 disabled:bg-black disabled:cursor-default"
           >

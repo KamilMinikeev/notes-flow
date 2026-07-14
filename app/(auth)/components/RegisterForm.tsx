@@ -1,14 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
   const [registerName, setRegisterName] = useState<string>("");
   const [registerEmail, setRegisterEmail] = useState<string>("");
   const [registerPassword, setRegisterPassword] = useState<string>("");
 
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    router.push("/home");
+  };
+
   return (
-    <form className="rounded-xl bg-white p-6 w-full">
+    <form onSubmit={handleSubmit} className="rounded-xl bg-white p-6 w-full">
       <div className="mb-6">
         <h4 className="mb-1.5 font-bold">Регистрация</h4>
         <p className="text-[#717185]">Создайте новый аккаунт</p>
@@ -22,7 +30,7 @@ const RegisterForm = () => {
           <input
             id="register-name"
             type="text"
-            placeholder="your@email.com"
+            placeholder="Ваше имя"
             value={registerName}
             onChange={(e) => setRegisterName(e.target.value)}
             required
